@@ -20,9 +20,8 @@ def main():
         text_input()
 
 def home():
-    Image.open("image/Logo_without_backround.png")
-    st.image(Image, use_column_width=0.5)
-    st.write("made by Voigtsberger and Tilg")
+    #Image.open("image/Logo_without_backround.png")
+    st.image("image/Logo_without_backround.png", use_column_width=True, caption="made by Voigtsberger and Tilg")
 
 def upload_image():
     st.write("Upload an image below:")
