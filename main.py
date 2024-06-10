@@ -15,22 +15,22 @@ def main():
 
     if choice == "Home":
         home()
-    elif choice == "Upload Image":
-        upload_image()
-    elif choice == "Text Input":
-        text_input()
+    elif choice == "Person":
+        chose_Person()
+    elif choice == "Information":
+        read_information()
 
 def home():
     #Image.open("image/Logo_without_backround.png")
     st.image("image/Logo_without_backround.png", use_column_width=True, caption="made by Voigtsberger and Tilg")
 
-def upload_image():
+def chose_Person():
     st.write("Upload an image below:")
     uploaded_file = st.file_uploader("Choose an image...", type="jpg")
     if uploaded_file is not None:
         st.image(uploaded_file, caption="Uploaded Image.", use_column_width=True)
 
-def text_input():
+def read_information():
     st.write("Enter some text below:")
     user_input = st.text_input("Your text here:")
     if user_input:
