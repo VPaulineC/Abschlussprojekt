@@ -1,5 +1,5 @@
 import streamlit as st
-from login import check_credentials
+from login import check_login
 
 def main():
     st.markdown("<h1 style='text-align: center; color: black;'>HeartBeatAnalyzer</h1>", unsafe_allow_html=True)
@@ -38,7 +38,7 @@ def chose_Person():
         # check login informtion
         if login_button:
             st.session_state['login_attempted'] = True
-            if check_credentials(username, password):
+            if check_login(username, password):
                 st.session_state['logged_in'] = True
                 st.session_state['username'] = username
                 st.experimental_rerun()
