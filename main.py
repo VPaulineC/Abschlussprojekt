@@ -1,5 +1,6 @@
 import streamlit as st
 from login import check_login
+from person_page import person_page
 
 def main():
     st.markdown("<h1 style='text-align: center; color: black;'>HeartBeatAnalyzer</h1>", unsafe_allow_html=True)
@@ -45,17 +46,13 @@ def chose_Person():
         # Show error message only if login was attempted and failed
         if st.session_state['login_attempted'] and not st.session_state['logged_in']:
             st.error("Login failed. Please check your username and password.")
-            
-    ## creating main page with person information
-    def person_page():
-        st.title("Persons")
-        st.write("Willkommen, {}!".format(st.session_state['username']))
+
 
     #check login state
     if 'logged_in' not in st.session_state:
         st.session_state['logged_in'] = False
 
-    #shwo persong_page
+    #show person_page
     if st.session_state['logged_in']:
         person_page()
     else:
