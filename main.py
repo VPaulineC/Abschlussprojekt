@@ -1,10 +1,11 @@
 import streamlit as st
+from PIL import Image
 
 def main():
-    st.title("HeartBeatAnalyzer")
-    st.header("Your EKG analysis tool")
-    st.write("made by Voigtsberger and Tilg")
-
+    st.markdown("<h1 style='text-align: center; color: black;'>HeartBeatAnalyzer</h1>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: center; color: black;'>Your EKG analysis tool</h2>", unsafe_allow_html=True)
+    
+    
 
     # Sidebar
     st.sidebar.title("Navigation")
@@ -19,8 +20,9 @@ def main():
         text_input()
 
 def home():
-    st.write("This is the home page. Add your main content here.")
-    st.image("image/Logo_without_backround.png", use_column_width=True)
+    Image.open("image/Logo_without_backround.png")
+    st.image(Image, use_column_width=0.5)
+    st.write("made by Voigtsberger and Tilg")
 
 def upload_image():
     st.write("Upload an image below:")
