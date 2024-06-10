@@ -9,7 +9,8 @@ def main():
 
     # Sidebar
     st.sidebar.title("Navigation")
-    options = ["Home", "Upload Image", "Text Input"]
+    st.sidebar.image("image/Logo_without_backround.png", width=150)
+    options = ["Home", "Person", "Information"]
     choice = st.sidebar.selectbox("Select a page", options)
 
     if choice == "Home":
