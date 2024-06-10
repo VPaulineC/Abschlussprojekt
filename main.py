@@ -1,8 +1,10 @@
 import streamlit as st
 
 def main():
-    st.title("My Streamlit App")
-    st.header("Welcome to my customized Streamlit app!")
+    st.title("HeartBeatAnalyzer")
+    st.header("Your EKG analysis tool")
+    st.write("made by Voigtsberger and Tilg")
+
 
     # Sidebar
     st.sidebar.title("Navigation")
@@ -18,6 +20,7 @@ def main():
 
 def home():
     st.write("This is the home page. Add your main content here.")
+    st.image("image/Logo_without_backround.png", use_column_width=True)
 
 def upload_image():
     st.write("Upload an image below:")
