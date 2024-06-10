@@ -1,10 +1,9 @@
 import streamlit as st
-from PIL import Image
+from login import check_credentials
 
 def main():
     st.markdown("<h1 style='text-align: center; color: black;'>HeartBeatAnalyzer</h1>", unsafe_allow_html=True)
     st.markdown("<h2 style='text-align: center; color: black;'>Your EKG analysis tool</h2>", unsafe_allow_html=True)
-    
     
 
     # Sidebar
@@ -25,10 +24,21 @@ def home():
     st.image("image/Logo_without_backround.png", use_column_width=True, caption="made by Voigtsberger and Tilg")
 
 def chose_Person():
-    st.write("Upload an image below:")
-    uploaded_file = st.file_uploader("Choose an image...", type="jpg")
-    if uploaded_file is not None:
-        st.image(uploaded_file, caption="Uploaded Image.", use_column_width=True)
+    ## creating login page
+    st.title("Login Page")
+    # create input box for username and password
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
+    # Login-Button
+    login_button = st.button("Login")
+    # check login informtion
+    if login_button:
+        if check_credentials(username, password):
+            st.success("Login successful")
+            # Hier kannst du die Logik für den erfolgreichen Login hinzufügen
+            st.write("Willkommen, {}!".format(username))
+        else:
+            st.error("Login failed. Please check your username and password.")
 
 def read_information():
     st.write("Enter some text below:")
