@@ -25,20 +25,45 @@ def home():
 
 def chose_Person():
     ## creating login page
-    st.title("Login Page")
-    # create input box for username and password
-    username = st.text_input("Username")
-    password = st.text_input("Password", type="password")
-    # Login-Button
-    login_button = st.button("Login")
-    # check login informtion
-    if login_button:
-        if check_credentials(username, password):
-            st.success("Login successful")
-            # Hier kannst du die Logik für den erfolgreichen Login hinzufügen
-            st.write("Willkommen, {}!".format(username))
-        else:
+    def login_page():
+        st.title("Login Page")
+        # create input box for username and password
+        username = st.text_input("Username")
+        password = st.text_input("Password", type="password")
+        # Login-Button
+        login_button = st.button("Login")
+        # Initialize login attempt state
+        if 'login_attempted' not in st.session_state:
+            st.session_state['login_attempted'] = False
+        # check login informtion
+        if login_button:
+            st.session_state['login_attempted'] = True
+            if check_credentials(username, password):
+                st.session_state['logged_in'] = True
+                st.session_state['username'] = username
+                st.experimental_rerun()
+        # Show error message only if login was attempted and failed
+        if st.session_state['login_attempted'] and not st.session_state['logged_in']:
             st.error("Login failed. Please check your username and password.")
+            
+    ## creating main page with person information
+    def person_page():
+        st.title("Persons")
+        st.write("Willkommen, {}!".format(st.session_state['username']))
+
+    #check login state
+    if 'logged_in' not in st.session_state:
+        st.session_state['logged_in'] = False
+
+    #shwo persong_page
+    if st.session_state['logged_in']:
+        person_page()
+    else:
+        login_page()
+    
+
+
+
 
 def read_information():
     st.write("Enter some text below:")
