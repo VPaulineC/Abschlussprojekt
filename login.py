@@ -1,5 +1,5 @@
 # Definiere die Benutzer und Passwörter
-users = {"user1": "password1", "user2": "password2"}
+users = {"user1": "1", "user2": "password2"}
 
 # Funktion zum Überprüfen der Anmeldedaten
 def check_login(username, password):

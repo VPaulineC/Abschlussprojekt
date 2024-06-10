@@ -2,9 +2,8 @@ import json
 import pandas as pd
 from person import Person
 import plotly.express as px
-#from scipy.signal import find_peaks   
-import matplotlib.pyplot as plt
 import numpy as np
+import matplotlib.pyplot as plt
 
 # %% Objekt-Welt
 
