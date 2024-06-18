@@ -4,20 +4,20 @@ from person_page import person_page
 
 def main():
     st.markdown("<h1 style='text-align: center; color: black;'>HeartBeatAnalyzer</h1>", unsafe_allow_html=True)
-    st.markdown("<h2 style='text-align: center; color: black;'>Your EKG analysis tool</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: center; color: black;'>Ihr EKG Analyse Tool</h2>", unsafe_allow_html=True)
     
 
     # Sidebar
     st.sidebar.title("Navigation")
     st.sidebar.image("image/Logo_without_backround.png", width=150)
-    options = ["Home", "Person", "Information"]
-    choice = st.sidebar.selectbox("Select a page", options)
+    options = ["Home", "Personen", "Informationen"]
+    choice = st.sidebar.selectbox("Wähle eine Seite", options)
 
     if choice == "Home":
         home()
-    elif choice == "Person":
+    elif choice == "Personen":
         chose_Person()
-    elif choice == "Information":
+    elif choice == "Informationen":
         read_information()
 
 def home():
@@ -27,10 +27,10 @@ def home():
 def chose_Person():
     ## creating login page
     def login_page():
-        st.title("Login Page")
+        st.title("Login")
         # create input box for username and password
-        username = st.text_input("Username")
-        password = st.text_input("Password", type="password")
+        username = st.text_input("Nutzername")
+        password = st.text_input("Passwort", type="password")
         # Login-Button
         login_button = st.button("Login")
         # Initialize login attempt state

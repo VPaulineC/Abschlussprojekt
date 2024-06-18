@@ -7,8 +7,8 @@ import numpy as np
 
 
 def person_page():
-    st.title("Person Page")
-    st.write("Willkommen, {}!".format(st.session_state['username']))
+    st.title("Personen")
+    
 
     # Anlegen diverser Session States
     if 'aktuelle_versuchsperson' not in st.session_state:
@@ -24,7 +24,7 @@ def person_page():
     # Lade alle Personen
     person_names = read_person_data.get_person_list(read_person_data.load_person_data())
     # Auswahlbox, wenn Personen anzulegen sind
-    st.session_state.aktuelle_versuchsperson = st.selectbox('choose a person', options = ["choose"] + person_names, key="sbVersuchsperson")
+    st.session_state.aktuelle_versuchsperson = st.selectbox('Wähle eine Person', options = ["Auswählen"] + person_names, key="sbVersuchsperson")
 
     #-------------
     if st.session_state.aktuelle_versuchsperson in person_names:
