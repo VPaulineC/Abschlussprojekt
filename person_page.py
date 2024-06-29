@@ -91,3 +91,14 @@ def person_page():
             st.write("Durchsnitt HF:", np.round(df_hr["Heart Rate in bpm"].mean()))
         
         #------------------------------------------------------------
+        '''To-dos:
+        - EKG-Dauer anzeigen
+        - Nutzer kann Zeitbereich für Plots auswählen (Slider)
+        - Deployment auf Heroku oder Streamlit Share
+        - neue Person anlegen mit Profilbild
+        - neuen Datensatz anlegen mittels Drag and Drop
+        - Daten aus einer anderen Datenquelle einlesen
+        - Herzrate im sinnvollen gleitenden Durchschnitt als Plot anzeigen
+        - Herzratenvariabilität anzeigen
+        - Informationsseite anlegen mit Informationen über EKG, Herzvariabilität, … (über Navigation zugreifbar)
+        -Über Link (z.B. wenn man auf EKG klickt) auf Informationsseite gelangen'''
