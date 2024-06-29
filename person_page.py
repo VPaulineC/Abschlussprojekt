@@ -4,7 +4,7 @@ import ekgdata
 import person
 from PIL import Image
 import numpy as np
-
+import datetime
 
 def person_page():
     st.title("Personen")
@@ -50,15 +50,21 @@ def person_page():
             image = Image.open(st.session_state.picture_path)
             st.image(image, caption=st.session_state.aktuelle_versuchsperson)
 
+        #------------------------------------------------------------
         ekg_ids = [ekg["id"] for ekg in selected_person.ekg_data]
         # Show ekg in a list
         selected_id = st.selectbox("choose EKG: ", options= ekg_ids, key="sbEKG")
-
+    
         # EKG Plot und HR Plot
         ekg_dict = ekgdata.EKGdata.load_by_id(selected_id)
         #ekg_dict = EKGdata.load_by_id(id_from_selectionbox)
         ekg_data = ekgdata.EKGdata(ekg_dict)
-        #------------------------------------------------------------
+        #Datum des EKGs anzeigen
+        ekg_date = ekg_dict.get("date", "Datum nicht verfügbar")
+        st.write(f"erstellt am: {ekg_date}")
+        #Dauer des EKGs anzeigen
+
+        #------------------------------------------------------------  
         df = ekg_data.get_df()
         #print(df.head())
         peaks = ekgdata.EKGdata.find_peaks(df['EKG in mV'], 340, 5)
@@ -66,3 +72,22 @@ def person_page():
         fig = ekgdata.EKGdata.plot_ekg(df, peaks)
         #fig.show()
         st.plotly_chart(fig)
+        #------------------------------------------------------------
+        df_hr = ekgdata.EKGdata.estimate_hr(peaks, 1000)
+        #print(df_hr.head())
+        
+        #------------------------------------------------------------
+        show_heartrate = st.checkbox("Herzrate anzeigen")
+
+        # Wenn die Checkbox aktiviert ist, wird die Grafik der Herzratengezeigt
+        if show_heartrate:
+            fig = ekgdata.EKGdata.plot_hr(df_hr)
+            #fig.show() 
+            st.plotly_chart(fig)
+        #------------------------------------------------------------
+        # wenn Checkbox aktiviert ist, wird die durchschnittliche Herzfrequenz angezeigt
+        show_hr = st.checkbox("Durchschnittliche Herzfrequenz anzeigen")
+        if show_hr:
+            st.write("Durchsnitt HF:", np.round(df_hr["Heart Rate in bpm"].mean()))
+        
+        #------------------------------------------------------------
