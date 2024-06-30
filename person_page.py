@@ -102,3 +102,5 @@ def person_page():
         - Herzratenvariabilität anzeigen
         - Informationsseite anlegen mit Informationen über EKG, Herzvariabilität, … (über Navigation zugreifbar)
         -Über Link (z.B. wenn man auf EKG klickt) auf Informationsseite gelangen'''
+        #------------------------------------------------------------
+        #neue Person anlegen	
