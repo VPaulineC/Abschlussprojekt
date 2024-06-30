@@ -131,6 +131,8 @@ if __name__ == "__main__":
     fig = EKGdata.plot_hr(df_hr)
     fig.show() 
     #------------------------------------------------------------
-
+    # EKG Dauer anzeigen
+    ekg_length = df['Time in s'].iloc[-1]
+    print("EKG-Dauer: ", ekg_length, "s")
 
 # %%

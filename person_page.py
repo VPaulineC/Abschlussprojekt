@@ -52,18 +52,21 @@ def person_page():
 
         #------------------------------------------------------------
         ekg_ids = [ekg["id"] for ekg in selected_person.ekg_data]
-        # Show ekg in a list
+        # EKGs anzeigen als Liste
         selected_id = st.selectbox("choose EKG: ", options= ekg_ids, key="sbEKG")
     
         # EKG Plot und HR Plot
         ekg_dict = ekgdata.EKGdata.load_by_id(selected_id)
-        #ekg_dict = EKGdata.load_by_id(id_from_selectionbox)
         ekg_data = ekgdata.EKGdata(ekg_dict)
-        #Datum des EKGs anzeigen
-        ekg_date = ekg_dict.get("date", "Datum nicht verfügbar")
-        st.write(f"erstellt am: {ekg_date}")
-        #Dauer des EKGs anzeigen
 
+        # Datum des EKGs anzeigen
+        ekg_date = ekg_dict.get("date", "Datum nicht verfügbar")
+        st.write("erstellt am: ", ekg_date)
+
+        # EKG Dauer anzeigen
+        ekg_length = ekg_data.get_df()['Time in s'].iloc[-1]
+        st.write("EKG-Dauer: ", round(ekg_length), "sek", "|", round(ekg_length/60), "min")
+        
         #------------------------------------------------------------  
         df = ekg_data.get_df()
         #print(df.head())

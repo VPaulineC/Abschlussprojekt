@@ -1,6 +1,7 @@
 import streamlit as st
 from login import check_login
 from person_page import person_page
+from add_data_page import add_new_data
 
 def main():
     st.markdown("<h1 style='text-align: center; color: black;'>HeartBeatAnalyzer</h1>", unsafe_allow_html=True)
@@ -10,7 +11,7 @@ def main():
     # Sidebar
     st.sidebar.title("Navigation")
     st.sidebar.image("image/Logo_without_backround.png", width=150)
-    options = ["Home", "Personen", "Informationen"]
+    options = ["Home", "Personen", "Informationen", "Datensätze Hinzufügen"]
     choice = st.sidebar.selectbox("Wähle eine Seite", options)
 
     if choice == "Home":
@@ -19,6 +20,8 @@ def main():
         chose_Person()
     elif choice == "Informationen":
         read_information()
+    elif choice == "Datensätze Hinzufügen":
+        add_new_data()
 
 def home():
     #Image.open("image/Logo_without_backround.png")
@@ -62,11 +65,16 @@ def chose_Person():
 
 
 
+
 def read_information():
     st.write("Enter some text below:")
     user_input = st.text_input("Your text here:")
     if user_input:
         st.write("You entered:", user_input)
+
+
+
+
 
 if __name__ == "__main__":
     main()
