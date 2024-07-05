@@ -88,9 +88,27 @@ def person_page():
         # wenn Checkbox aktiviert ist, wird die durchschnittliche Herzfrequenz angezeigt
         show_hr = st.checkbox("Durchschnittliche Herzfrequenz anzeigen")
         if show_hr:
-            st.write("Durchsnitt HF:", np.round(df_hr["Heart Rate in bpm"].mean()))
+            st.write("Durchsnitt HF:", np.round(df_hr["Heart Rate in bpm"].mean()), "bpm")
         
         #------------------------------------------------------------
+        # checkbox für HRV 
+        show_hrv = st.checkbox("Herzfrequenzvariabilität anzeigen")
+        if show_hrv: 
+        # Herzratenvaribalitität berechnen und anzeigen
+            def calculate_hrv(peaks):
+                if len(peaks) < 2:
+                    return None
+                
+                rr_intervals = np.diff(peaks) 
+
+                hrv = np.std(rr_intervals)
+                return hrv
+            st.write("Herzratenvariabilität: ", np.round(calculate_hrv(peaks)), "ms")
+            
+
+
+
+
         '''To-dos:
         - EKG-Dauer anzeigen
         - Nutzer kann Zeitbereich für Plots auswählen (Slider)
@@ -100,5 +118,4 @@ def person_page():
         - Daten aus einer anderen Datenquelle einlesen
         - Herzrate im sinnvollen gleitenden Durchschnitt als Plot anzeigen
         - Herzratenvariabilität anzeigen
-        - Informationsseite anlegen mit Informationen über EKG, Herzvariabilität, … (über Navigation zugreifbar)
         -Über Link (z.B. wenn man auf EKG klickt) auf Informationsseite gelangen'''
