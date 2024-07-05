@@ -57,16 +57,31 @@ def chose_Person():
         person_page()
     else:
         login_page()
-    
-
-
-
 
 def read_information():
-    st.write("Enter some text below:")
-    user_input = st.text_input("Your text here:")
-    if user_input:
-        st.write("You entered:", user_input)
+    st.title("Informationen")
+    st.header("EKG")
+    st.subheader("Was ist ein EKG?")
+    st.write("EKG steht für Elektrokardiogramm und bezeichnet eine Untersuchungsmethode, bei der die elektrische Aktivität des Herzens gemessen wird. Die sogenannte Herzaktion wird dabei über Elektroden abgeleitet und in Form von Kurven aufgezeichnet. Anhand dieser kann man beurteilen, ob das Herz störungsfrei funktioniert.")
+    st.subheader("Welche Arten von EKGs gibt es?")
+    st.write("Das klassische EKG wird am liegenden, entspannten Patienten durchgeführt und deshalb als Ruhe-EKG bezeichnet. Im Gegensatz dazu steht das Belastungs-EKG: Hier erfolgt die EKG-Ableitung während körperlicher Anstrengung – der Patient bewegt sich auf einem Laufband oder einem Fahrrad. Beim Langzeit-EKG wird die elektrische Herzaktivität über einen längeren Zeitraum, meist 24 Stunden, aufgezeichnet.")
+    st.write("Quelle: https://www.netdoktor.de/diagnostik/ekg/")
+
+    st.header("Herzfrequenz/Herzrate und Herzratenvariabilität")
+    st.subheader("Warum misst man die Herzfrequenz?")
+    st.write("Die Herzfrequenz beschreibt die Anzahl der Herzschläge pro Minute und ist ein wichtiger Vitalparameter zur Beurteilung der Herzgesundheit. Ärzte verwenden sie, um Herzprobleme zu diagnostizieren. Die Herzfrequenz kann aus einem EKG abgelesen werden, während Laien den Puls am Handgelenk oder der Halsschlagader zählen können. Abweichungen können auf Gesundheitsprobleme hinweisen, z. B. ein plötzliches Herzrasen oder eine dauerhaft niedrige Herzfrequenz.")
+    st.write("Quelle: https://www.bing.com/chat?form=NTPCHB")
+    st.subheader("Was sind Ruhepuls, Maximalpuls und Erholungspuls?")
+    st.write("Ruhepuls: Der Ruhepuls verrät, wie schnell das Herz im Ruhezustand schlägt und kann im Ruhe-EKG gemessen werden. Er ist von Mensch zu Mensch sehr unterschiedlich, kann aber einiges über das Fitnesslevel, die Regenerationsfähigkeit und den Gesundheitszustand aussagen eines Menschen. Der Ruhepuls kann von diversen Faktoren beeinflusst werden, etwa Stress, Wetter, körperliche Aktivität, Koffein, Hormone, Schwangerschaft, Tageszeit, etc. Der Ruhepuls ist auch ein Gradmesser für unseren Trainingsstand. Ein trainierter Athlet hat einen deutlich niedrigeren Ruhepuls als eine Person, die wenig Sport treibt — das gilt besonders für Ausdauersport. Da das Herz ein Muskel ist, wächst es wie alle anderen Muskeln auch durch regelmäßiges Training. Ein größeres Herz wiederum fasst mehr Blut und kann somit innerhalb eines Herzschlags mehr Blut ausstoßen. Das bedeutet, dass das Herz nicht so oft wie ein kleineres Herz schlagen muss, um die Gefäße mit Blut zu versorgen, daher der niedrigere Ruhepuls. m Allgemeinen kann man sagen: Untrainierte Athleten haben im Durchschnitt einen Ruhepuls von 60-80 Schlägen pro Minute, bei trainierten Athleten liegt er eher bei 40-50 Schlägen pro Minute und einige Profi-Ausdauersportler haben sogar einen Ruhepuls von 20-30.")
+    st.write("Maximalpuls: Der Maximalpuls ist die Anzahl der Herzschläge pro Minute, die ein Mensch unter größtmöglicher körperlicher Anstrengung erreichen kann. Mit dem Maximalpuls kann man seine individuellen Herzfrequenzzonen je nach Trainingsintensität bestimmen. Diese wiederum können dann genutzt werden, um das Training in einem effektiven Bereich, je nach Ziel, zu absolvieren. Um den Maximalpuls zu bestimmen gibt es verschiedene Formeln, die jedoch nicht sehr genau sind. Zum Beispiel: Maximalpuls = 220 – Alter. Eine genauere Methode Um den Maximalpuls zu bestimmen gibt es verschiedene Formeln. Zum Beispiel: Maximalpuls = 220 – Alter. Eine genauere Methode wäre ein Leistungstest bei einem Sportwissenschaftler oder Arzt")
+    st.write("Erholungspuls: Der Erholungspuls ist ein Gradmesser für die allgemeine sportliche Leistungsfähigkeit. Er gibt Auskunft darüber, wie schnell der Herzschlag nach körperlicher Belastung wieder in seinen Normalzustand zurückkehrt. Bei geringer Intensität gelangt der Puls z. B. wieder relativ schnell zurück in den Normalzustand, bei hoher Intensität dauert es dementsprechend länger. Dies wiederum hängt damit zusammen, wie gut der Körper mit einem Sauerstoffmangel zurechtkommt. Je fitter und trainierter ein Athlet ist, d. h. je größer seine aerobe Kapazität ist, desto schneller erholt er sich nach körperlicher Belastung.")
+    st.write("Quelle: https://www.freeletics.com/de/blog/posts/herzfrequenzzonen/")
+    st.subheader("Was ist die Herzfrequenzvariabilität?")
+    st.write("Die Herzfrequenzvariabilität (HRV) beschreibt die zeitlichen Abstände zwischen den einzelnen Herzschlägen und wird durch das autonome Nervensystem reguliert. Eine höhere HRV ist ein Zeichen für ein gut funktionierendes, anpassungsfähiges Herz-Kreislauf-System und zeigt eine gute Balance zwischen Sympathikus (aktivierend) und Parasympathikus (entspannend). Faktoren wie Stress, Schlafmangel und Übertraining können die HRV negativ beeinflussen. Sportler nutzen die HRV-Messung, um den Trainingszustand und die Erholung zu überwachen und Übertraining zu vermeiden. Eine niedrige HRV kann auf Überlastung oder Erschöpfung hinweisen.")
+    st.write("Quelle: https://www.runnersworld.de/training-basiswissen/was-ist-eigentlich-die-herzfrequenzvariabilitaet/")
+
+
+
 
 if __name__ == "__main__":
     main()
