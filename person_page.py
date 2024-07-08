@@ -117,5 +117,4 @@ def person_page():
         - neuen Datensatz anlegen mittels Drag and Drop
         - Daten aus einer anderen Datenquelle einlesen
         - Herzrate im sinnvollen gleitenden Durchschnitt als Plot anzeigen
-        - Herzratenvariabilität anzeigen
         -Über Link (z.B. wenn man auf EKG klickt) auf Informationsseite gelangen'''
