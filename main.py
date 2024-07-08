@@ -14,14 +14,17 @@ def main():
     options = ["Home", "Personen", "Informationen", "Datensätze Hinzufügen"]
     choice = st.sidebar.selectbox("Wähle eine Seite", options)
 
+
+
     if choice == "Home":
         home()
     elif choice == "Personen":
         chose_Person()
-    elif choice == "Informationen":
-        read_information()
     elif choice == "Datensätze Hinzufügen":
         add_new_data()
+    elif choice == "Informationen":
+        read_information()
+
 
 def home():
     #Image.open("image/Logo_without_backround.png")
