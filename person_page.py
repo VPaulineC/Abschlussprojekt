@@ -63,7 +63,8 @@ def person_page():
         ekg_date = ekg_dict.get("date", "Datum nicht verfügbar")
         st.write(f"erstellt am: {ekg_date}")
         #Dauer des EKGs anzeigen
-
+        ekg_length = ekg_data.get_df()['Time in s'].iloc[-1]
+        st.write("EKG-Dauer: ", round(ekg_length), "sek", "|", round(ekg_length/60), "min")
         #------------------------------------------------------------  
         df = ekg_data.get_df()
         #print(df.head())
