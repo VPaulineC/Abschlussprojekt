@@ -92,12 +92,11 @@ class EKGdata:
     def estimate_hr(peaks, sampling_rate):
         # Calculate time differences between peaks
         time_difference = np.array([(peaks[i] - peaks[i-1]) / sampling_rate for i in range(1, len(peaks))])
-        # Calculate average time difference
-        # avg_time_difference = sum(time_difference) / len(time_difference)
         # Calculate heart rate (beats per minute)
         heart_rate = 60. / time_difference
-        time_array = np.array(peaks[1:]) / sampling_rate
-        
+        #time_array = np.array(peaks[1:]) / sampling_rate
+        time_array = 2*( np.array(peaks[1:]) / sampling_rate)
+
 
         # Create dataframe
         df_hr = pd.DataFrame({'Time in s': time_array, 'Heart Rate in bpm': heart_rate})

@@ -3,6 +3,7 @@ from login import check_login
 from person_page import person_page
 from add_data_page import add_new_data
 
+
 def main():
     st.markdown("<h1 style='text-align: center; color: black;'>HeartBeatAnalyzer</h1>", unsafe_allow_html=True)
     st.markdown("<h2 style='text-align: center; color: black;'>Ihr EKG Analyse Tool</h2>", unsafe_allow_html=True)
@@ -11,7 +12,7 @@ def main():
     # Sidebar
     st.sidebar.title("Navigation")
     st.sidebar.image("image/Logo_without_backround.png", width=150)
-    options = ["Home", "Personen", "Informationen", "Datensätze Hinzufügen"]
+    options = ["Home", "Personen", "Neue Person anlegen", "Informationen"]
     choice = st.sidebar.selectbox("Wähle eine Seite", options)
 
 
@@ -20,11 +21,11 @@ def main():
         home()
     elif choice == "Personen":
         chose_Person()
-    elif choice == "Datensätze Hinzufügen":
+    elif choice == "Neue Person anlegen":
         add_new_data()
     elif choice == "Informationen":
         read_information()
-
+      
 
 def home():
     #Image.open("image/Logo_without_backround.png")

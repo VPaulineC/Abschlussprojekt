@@ -4,9 +4,12 @@ import ekgdata
 import person
 from PIL import Image
 import numpy as np
-import datetime
+from datetime import datetime
 import pandas as pd
 import plotly.express as px
+import json
+import os
+
 
 
 def person_page():
@@ -56,7 +59,9 @@ def person_page():
         #------------------------------------------------------------
         ekg_ids = [ekg["id"] for ekg in selected_person.ekg_data]
         # Show ekg in a list
-        selected_id = st.selectbox("choose EKG: ", options= ekg_ids, key="sbEKG")
+        selected_id = st.selectbox("Wähle ein EKG aus: ", options= ekg_ids, key="sbEKG")
+
+    
     
         # EKG Plot und HR Plot
         ekg_dict = ekgdata.EKGdata.load_by_id(selected_id)
@@ -106,6 +111,7 @@ def person_page():
             fig = ekgdata.EKGdata.plot_hr(df_hr)
             #fig.show() 
             st.plotly_chart(fig)
+
         #------------------------------------------------------------
         # wenn Checkbox aktiviert ist, wird die durchschnittliche Herzfrequenz angezeigt
         show_hr = st.checkbox("Durchschnittliche Herzfrequenz anzeigen")
@@ -126,13 +132,46 @@ def person_page():
                 hrv = np.std(rr_intervals)
                 return hrv
             st.write("Herzratenvariabilität: ", np.round(calculate_hrv(peaks)), "ms")
+
+        # weiteren Datensatz hinzufügen
+        # Funktion zum Laden der JSON-Daten
+        def load_data():
+            with open('data/person_db.json', 'r') as file:
+                return json.load(file)
+
+        # Funktion zum Speichern der JSON-Daten
+        def save_data(data):
+            with open('data/person_db.json', 'w') as file:
+                json.dump(data, file, indent=4)
+
+        st.subheader("Weiteren Datensatz hinzufügen")
+        ekg_files = st.file_uploader("EKG-Tests hochladen", type=["txt"], accept_multiple_files=True)
+        if st.button("Weiteren Datensatz hinzufügen"):
             
+            for ekg_file in ekg_files:
+                ekg_path = os.path.join("data/ekg_data", ekg_file.name)
+                with open(ekg_path, "wb") as f:
+                    f.write(ekg_file.getbuffer())
+       
+
+                new_test = {
+                    'id': len(selected_person.ekg_data) + 1,
+                    'date': datetime.now().strftime("%d.%m.%Y"),
+                    'result_link': ekg_path
+                }
+                selected_person.ekg_data.append(new_test)
+            
+                st.success('Neuer EKG-Test wurde hinzugefügt!')
+            else:
+                st.error("Keine Datei hochgeladen")
 
 
 
 
-        '''To-dos:
 
+
+'''To-dos:
+        - zusätzlichen Datensatz bei Person hinzufügen
         - Deployment auf Heroku oder Streamlit Share
         - Daten aus einer anderen Datenquelle einlesen
         - Herzrate im sinnvollen gleitenden Durchschnitt als Plot anzeigen
