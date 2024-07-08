@@ -11,7 +11,7 @@ def main():
     # Sidebar
     st.sidebar.title("Navigation")
     st.sidebar.image("image/Logo_without_backround.png", width=150)
-    options = ["Home", "Personen", "Informationen"]
+    options = ["Home", "Personen", "Informationen", "Datensätze Hinzufügen"]
     choice = st.sidebar.selectbox("Wähle eine Seite", options)
 
     if choice == "Home":
