@@ -87,7 +87,9 @@ def person_page():
 
         # DataFrame basierend auf dem ausgewählten Zeitbereich filtern
         filtered_df = df[(df['Time in s'] >= start_time) & (df['Time in s'] <= end_time)]
-
+        #Fehlermeldung, wenn Startzeit größer als Endzeit
+        if start_time>end_time:
+            st.error("Die Startzeit muss vor der Endzeit liegen.")
         # Plot des EKGs für den ausgewählten Zeitbereich
         fig = px.line(filtered_df, x='Time in s', y='EKG in mV', title='EKG Plot')
         st.plotly_chart(fig)
