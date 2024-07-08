@@ -5,6 +5,9 @@ import person
 from PIL import Image
 import numpy as np
 import datetime
+import pandas as pd
+import plotly.express as px
+
 
 def person_page():
     st.title("Personen")
@@ -67,17 +70,32 @@ def person_page():
         ekg_length = ekg_data.get_df()['Time in s'].iloc[-1]
         st.write("EKG-Dauer: ", round(ekg_length), "sek", "|", round(ekg_length/60), "min")
         #------------------------------------------------------------  
+        #Dataframe aufrufen
         df = ekg_data.get_df()
-        #print(df.head())
+        #peaks aufrufen
         peaks = ekgdata.EKGdata.find_peaks(df['EKG in mV'], 340, 5)
-        #------------------------------------------------------------
-        fig = ekgdata.EKGdata.plot_ekg(df, peaks)
-        #fig.show()
+        # min_time und max_time für Slider festlegen
+        min_time = 0.0
+        max_time = df['Time in s'].iloc[-1]
+        default_start_time = 30.0
+        default_end_time = 60.0
+
+        #slider für Zeitbereich erstellen
+        start_time = st.slider("Startzeit", min_value=min_time, max_value=max_time, value=default_start_time)
+        end_time = st.slider("Endzeit", min_value=min_time, max_value=max_time, value=default_end_time)
+
+
+        # DataFrame basierend auf dem ausgewählten Zeitbereich filtern
+        filtered_df = df[(df['Time in s'] >= start_time) & (df['Time in s'] <= end_time)]
+
+        # Plot des EKGs für den ausgewählten Zeitbereich
+        fig = px.line(filtered_df, x='Time in s', y='EKG in mV', title='EKG Plot')
         st.plotly_chart(fig)
+        
         #------------------------------------------------------------
         df_hr = ekgdata.EKGdata.estimate_hr(peaks, 1000)
         #print(df_hr.head())
-        
+
         #------------------------------------------------------------
         show_heartrate = st.checkbox("Herzrate anzeigen")
 
@@ -112,11 +130,8 @@ def person_page():
 
 
         '''To-dos:
-        - EKG-Dauer anzeigen
-        - Nutzer kann Zeitbereich für Plots auswählen (Slider)
+
         - Deployment auf Heroku oder Streamlit Share
-        - neue Person anlegen mit Profilbild
-        - neuen Datensatz anlegen mittels Drag and Drop
         - Daten aus einer anderen Datenquelle einlesen
         - Herzrate im sinnvollen gleitenden Durchschnitt als Plot anzeigen
-        -Über Link (z.B. wenn man auf EKG klickt) auf Informationsseite gelangen'''
+        - Über Link (z.B. wenn man auf EKG klickt) auf Informationsseite gelangen'''
