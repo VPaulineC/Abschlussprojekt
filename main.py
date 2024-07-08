@@ -1,6 +1,7 @@
 import streamlit as st
 from login import check_login
 from person_page import person_page
+from add_data_page import add_new_data
 
 def main():
     st.markdown("<h1 style='text-align: center; color: black;'>HeartBeatAnalyzer</h1>", unsafe_allow_html=True)
@@ -19,6 +20,8 @@ def main():
         chose_Person()
     elif choice == "Informationen":
         read_information()
+    elif choice == "Datensätze Hinzufügen":
+        add_new_data()
 
 def home():
     #Image.open("image/Logo_without_backround.png")
