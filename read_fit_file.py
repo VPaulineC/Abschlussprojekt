@@ -1,0 +1,55 @@
+import fitparse
+import pandas as pd
+import plotly.express as px
+
+def read_heart_rate_from_fit(file_path):
+    '''Liest die Herzfrequenzdaten aus einer FIT-Datei und gibt sie als DataFrame zurück.'''
+    # Öffne die FIT-Datei mit fitparse
+    fitfile = fitparse.FitFile(file_path)
+
+    # Listen zum Speichern der Daten
+    timestamps = []
+    heart_rates = []
+
+    # Iteriere über alle Nachrichten in der FIT-Datei
+    for record in fitfile.get_messages("record"):
+        record_data = {}
+        for data in record:
+            record_data[data.name] = data.value
+
+        # Extrahiere den Timestamp und die Herzrate, falls vorhanden
+        if 'timestamp' in record_data and 'heart_rate' in record_data:
+            timestamps.append(record_data['timestamp'])
+            heart_rates.append(record_data['heart_rate'])
+
+    # Erstelle einen DataFrame aus den Daten
+    df = pd.DataFrame({
+        'timestamp': timestamps,
+        'heart_rate': heart_rates
+    })
+
+    # Füge eine Spalte im df hinzu, die nur die Sekunden enthält mit der Funktion dt.second
+    df['seconds'] = df['timestamp'].dt.second
+    # Rückgabe des DataFrames
+    return df
+
+
+# Erstelle die interaktive Grafik
+def plot_fit_file(file_path):
+    '''Plottet die Herzfrequenzdaten aus einer FIT-Datei in einer interaktiven Grafik.'''
+    df = read_heart_rate_from_fit(file_path)
+    fig = px.line(df, x='seconds', y='heart_rate', title='Herzrate über die Zeit (Sekunden)',
+              labels={'seconds': 'Sekunden', 'heart_rate': 'Herzrate'})
+    fig.show()
+
+# Beispielverwendung
+if __name__ == "__main__":
+    file_path = 'fit-files/tempo_blocks_training.fit'
+    df = read_heart_rate_from_fit(file_path)
+    print(df)
+    plot_fit_file(file_path)
+
+
+
+
+    
