@@ -59,5 +59,24 @@
                 "result_link": "data/ekg_data\\05_Belastung_copy.txt"
             }
         ]
+    },
+    {
+        "id": 5,
+        "date_of_birth": 2003,
+        "firstname": "Carina",
+        "lastname": "T",
+        "picture_path": "data/pictures\\Katze3.png",
+        "ekg_tests": [
+            {
+                "id": 1,
+                "date": "09.07.2024",
+                "result_link": "data/ekg_data\\04_Belastung_copy.txt"
+            },
+            {
+                "id": 2,
+                "date": "09.07.2024",
+                "result_link": "data/ekg_data\\05_Belastung_copy_2.txt"
+            }
+        ]
     }
 ]

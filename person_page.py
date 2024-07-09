@@ -9,6 +9,7 @@ import pandas as pd
 import plotly.express as px
 import json
 import os
+#from addNewDataToPerson import add_ekg_data_to_person
 
 
 
@@ -133,38 +134,9 @@ def person_page():
                 return hrv
             st.write("Herzratenvariabilität: ", np.round(calculate_hrv(peaks)), "ms")
 
-        # weiteren Datensatz hinzufügen
-        # Funktion zum Laden der JSON-Daten
-        def load_data():
-            with open('data/person_db.json', 'r') as file:
-                return json.load(file)
 
-        # Funktion zum Speichern der JSON-Daten
-        def save_data(data):
-            with open('data/person_db.json', 'w') as file:
-                json.dump(data, file, indent=4)
-
-        st.subheader("Weiteren Datensatz hinzufügen")
-        ekg_files = st.file_uploader("EKG-Tests hochladen", type=["txt"], accept_multiple_files=True)
-        if st.button("Weiteren Datensatz hinzufügen"):
-            
-            for ekg_file in ekg_files:
-                ekg_path = os.path.join("data/ekg_data", ekg_file.name)
-                with open(ekg_path, "wb") as f:
-                    f.write(ekg_file.getbuffer())
-       
-
-                new_test = {
-                    'id': len(selected_person.ekg_data) + 1,
-                    'date': datetime.now().strftime("%d.%m.%Y"),
-                    'result_link': ekg_path
-                }
-                selected_person.ekg_data.append(new_test)
-            
-                st.success('Neuer EKG-Test wurde hinzugefügt!')
-            else:
-                st.error("Keine Datei hochgeladen")
-
+        # --------------------------------------weiteren Datensatz hinzufügen------------------------------------------
+     
 
 
 

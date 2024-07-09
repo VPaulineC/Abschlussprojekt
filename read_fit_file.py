@@ -12,10 +12,11 @@ def read_heart_rate_from_fit(file_path):
     heart_rates = []
 
     # Iteriere über alle Nachrichten in der FIT-Datei
-    for record in fitfile.get_messages("record"):
-        record_data = {}
+    for record in fitfile.get_messages("record"): # record = Datensatz / get_messages = gibt alle Nachrichten des Typs "record" zurück
+        record_data = {} # leeres Dictionary für die Daten des Datensatzes
         for data in record:
-            record_data[data.name] = data.value
+            # Speichere die Daten in einem Dictionary
+            record_data[data.name] = data.value # data.name = Name des Datensatzes / data.value = Wert des Datensatzes
 
         # Extrahiere den Timestamp und die Herzrate, falls vorhanden
         if 'timestamp' in record_data and 'heart_rate' in record_data:
@@ -33,7 +34,7 @@ def read_heart_rate_from_fit(file_path):
 
     # Berechne die Sekunden seit dem Start der Aufzeichnung
     start_time = df['timestamp'].iloc[0]
-    df['seconds'] = (df['timestamp'] - start_time).dt.total_seconds()
+    df['seconds'] = (df['timestamp'] - start_time).dt.total_seconds() 
 
     # Rückgabe des DataFrames
     return df
