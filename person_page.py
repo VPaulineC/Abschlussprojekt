@@ -5,11 +5,12 @@ import person
 from PIL import Image
 import numpy as np
 from datetime import datetime
-import pandas as pd
 import plotly.express as px
 import json
 import os
-#from addNewDataToPerson import add_ekg_data_to_person
+import matplotlib.pyplot as plt
+
+
 
 
 
@@ -107,7 +108,7 @@ def person_page():
         #------------------------------------------------------------
         show_heartrate = st.checkbox("Herzrate anzeigen")
 
-        # Wenn die Checkbox aktiviert ist, wird die Grafik der Herzratengezeigt
+        # Wenn die Checkbox aktiviert ist, wird die Grafik der Herzrate gezeigt
         if show_heartrate:
             fig = ekgdata.EKGdata.plot_hr(df_hr)
             #fig.show() 
@@ -115,7 +116,7 @@ def person_page():
 
         #------------------------------------------------------------
         # wenn Checkbox aktiviert ist, wird die durchschnittliche Herzfrequenz angezeigt
-        show_hr = st.checkbox("Durchschnittliche Herzfrequenz anzeigen")
+        show_hr = st.checkbox("Durchschnittliche Herzfrequenz anzeigen insgesamt")
         if show_hr:
             st.write("Durchsnitt HF:", np.round(df_hr["Heart Rate in bpm"].mean()), "bpm")
         
@@ -134,9 +135,73 @@ def person_page():
                 return hrv
             st.write("Herzratenvariabilität: ", np.round(calculate_hrv(peaks)), "ms")
 
+                # rolling window für Herzfrequenz
+        show_rolling_heartrate = st.checkbox("Herzrate als gleitender Durchschnitt anzeigen")
+        # Wenn die Checkbox aktiviert ist, wird die Grafik der Herzrate gezeigt (im rolling window)
+        if show_rolling_heartrate: 
+            def calculate_rolling_window(df, window_size):
+                df['Rolling Mean HR in bpm'] = df['Heart Rate in bpm'].rolling(window=window_size).mean()
+                return df
 
-        # --------------------------------------weiteren Datensatz hinzufügen------------------------------------------
-     
+            def plot_rolling_mean(df):
+                fig = px.line(df, x='Time in s', y='Rolling Mean HR in bpm',
+                            title='Herzrate als gleitender Durchschnitt',
+                            labels={'Rolling Mean HR in bpm': 'Rolling Mean HR in bpm', 'Time in s': 'Time in seconds'})
+                st.plotly_chart(fig)
+
+            def filter_by_time_window(df, start_time, end_time):
+                return df[(df['Time in s'] >= start_time) & (df['Time in s'] <= end_time)]
+
+            # slider für Größe des rolling window
+            window_size = st.slider('Größe des angezeigten Fensters', min_value=1, max_value=10, value=3)
+
+            # rolling window berechnen
+            df_hr = calculate_rolling_window(df_hr, window_size)
+
+            # sliders für Zeit des rolling in window
+            #start_time = st.slider('Startzeit', min_value=float(df_hr['Time in s'].min()), max_value=float(df_hr['Time in s'].max()), value=float(df_hr['Time in s'].min()))
+            start_time = st.slider('Startzeit', min_value=0.0, max_value=float(df_hr['Time in s'].max()), value=30.0)
+            end_time = st.slider('Endzeit', min_value=0.0, max_value=float(df_hr['Time in s'].max()), value=60.0)
+
+            if start_time < end_time:
+                df_filtered = filter_by_time_window(df_hr, start_time, end_time)
+                # Plot des rolling window
+                plot_rolling_mean(df_filtered)
+                st.write("Durchschnittliche Herzrate im angezeigten Bereich: ", np.round(df_filtered['Heart Rate in bpm'].mean()), "bpm")
+            else:
+                st.write("Die Startzeit muss vor der Endzeit liegen.")
+        # weiteren Datensatz hinzufügen
+        # Funktion zum Laden der JSON-Daten
+        def load_data():
+            with open('data/person_db.json', 'r') as file:
+                return json.load(file)
+
+        # Funktion zum Speichern der JSON-Daten
+        def save_data(data):
+            with open('data/person_db.json', 'w') as file:
+                json.dump(data, file, indent=4)
+
+        st.subheader("Weiteren Datensatz hinzufügen")
+        ekg_files = st.file_uploader("EKG-Tests hochladen", type=["txt"], accept_multiple_files=True)
+        if st.button("Weiteren Datensatz hinzufügen"):
+            
+            for ekg_file in ekg_files:
+                ekg_path = os.path.join("data/ekg_data", ekg_file.name)
+                with open(ekg_path, "wb") as f:
+                    f.write(ekg_file.getbuffer())
+       
+
+                new_test = {
+                    'id': len(selected_person.ekg_data) + 1,
+                    'date': datetime.now().strftime("%d.%m.%Y"),
+                    'result_link': ekg_path
+                }
+                selected_person.ekg_data.append(new_test)
+            
+                st.success('Neuer EKG-Test wurde hinzugefügt!')
+            else:
+                st.error("Keine Datei hochgeladen")
+
 
 
 
