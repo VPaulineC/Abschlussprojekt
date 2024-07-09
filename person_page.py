@@ -100,10 +100,14 @@ def person_page():
         # Plot des EKGs für den ausgewählten Zeitbereich
         fig = px.line(filtered_df, x='Time in s', y='EKG in mV', title='EKG Plot')
         st.plotly_chart(fig)
+
+        if df['Time in s'].iloc[0] > 0:
+            st.write("Die Aufzeichnung beginnt bei 0 Sekunden, aber die ersten Messdaten wurden erst nach einigen Sekunden erfasst. Beachten Sie dies bei ihrer Analyse.")
         
         #------------------------------------------------------------
         df_hr = ekgdata.EKGdata.estimate_hr(peaks, 1000)
         #print(df_hr.head())
+
 
         #------------------------------------------------------------
         show_heartrate = st.checkbox("Herzrate anzeigen")
@@ -211,5 +215,4 @@ def person_page():
         - zusätzlichen Datensatz bei Person hinzufügen
         - Deployment auf Heroku oder Streamlit Share
         - Daten aus einer anderen Datenquelle einlesen
-        - Herzrate im sinnvollen gleitenden Durchschnitt als Plot anzeigen
-        - Über Link (z.B. wenn man auf EKG klickt) auf Informationsseite gelangen'''
+      '''
