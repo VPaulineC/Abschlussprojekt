@@ -173,7 +173,7 @@ def person_page():
                 plot_rolling_mean(df_filtered)
                 st.write("Durchschnittliche Herzrate im angezeigten Bereich: ", np.round(df_filtered['Heart Rate in bpm'].mean()), "bpm")
             else:
-                st.write("Die Startzeit muss vor der Endzeit liegen.")
+                st.error("Die Startzeit muss vor der Endzeit liegen.")
         # weiteren Datensatz hinzufügen
         # Funktion zum Laden der JSON-Daten
         def load_data():
