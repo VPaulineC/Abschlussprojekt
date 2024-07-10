@@ -27,7 +27,8 @@ def find_person_data_by_name(suchstring):
     person_data = load_person_data()
     if suchstring == "None":
         return {}
-
+    
+    # split the string in lastname and firstname
     two_names = suchstring.split(", ")
     vorname = two_names[1]
     nachname = two_names[0]

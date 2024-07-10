@@ -2,7 +2,7 @@ import json
 from datetime import datetime
 
 class Person:
-    
+    '''Klasse zur Verwaltung von Personendaten.'''
     @staticmethod
     def load_person_data():
         """A Function that knows where te person Database is and returns a Dictionary with the Persons"""
@@ -14,7 +14,7 @@ class Person:
     def get_person_list(person_data):
         """A Function that takes the persons-dictionary and returns a list auf all person names"""
         list_of_names = []
-
+        # iteriere über alle Einträge in person_data
         for eintrag in person_data:
             list_of_names.append(eintrag["lastname"] + ", " +  eintrag["firstname"])
         return list_of_names
@@ -24,17 +24,19 @@ class Person:
         """ Eine Funktion der Nachname, Vorname als ein String übergeben wird
         und die die Person als Dictionary zurück gibt"""
 
+        # Laden der Personendaten
         person_data = Person.load_person_data()
         if suchstring == "None":
             return {}
-
+        
+        # Split des Strings in Vorname und Nachname
         two_names = suchstring.split(", ")
         vorname = two_names[1]
         nachname = two_names[0]
 
+        # Iteriere über alle Einträge in person_data
         for eintrag in person_data:
             if (eintrag["lastname"] == nachname and eintrag["firstname"] == vorname):
-                
                 return eintrag
         else:
             return {}
@@ -42,10 +44,11 @@ class Person:
     @staticmethod   
     def load_by_id(such_id):
         person_data = Person.load_person_data()
-        
+        # prüfen ob id gefunden wurde
         if such_id == "None":
             return {}
-
+        
+        # Iteriere über alle Einträge in person_data
         for eintrag in person_data:
             if (eintrag["id"] == such_id):
                 return eintrag
@@ -65,12 +68,14 @@ class Person:
 
 
     def calc_age(self):
+        '''Berechnet das Alter der Person anhand des Geburtsjahres.'''
         current_year = datetime.now().year
         birth_year = int(self.date_of_birth)
         age = current_year - birth_year
         return age
     
     def calc_max_heart_rate(self):
+        '''Berechnet die maximale Herzfrequenz der Person.'''
         age = self.calc_age()
         max_heart_rate = 220 - age 
         return max_heart_rate

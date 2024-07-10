@@ -2,22 +2,20 @@ import streamlit as st
 import json
 import os
 from datetime import datetime
-import fitparse
 import pandas as pd
 import plotly.express as px
-from read_fit_file import read_heart_rate_from_fit, plot_fit_file
-
-
 
 def add_new_data():
-
+    '''Funktion zum Hinzufügen neuer Personendaten.'''
     # Funktion zum Laden der JSON-Daten
     def load_data():
+        '''Lädt die JSON-Daten aus der Datei person_db.json und gibt sie zurück.'''
         with open('data/person_db.json', 'r') as file:
             return json.load(file)
 
     # Funktion zum Speichern der JSON-Daten
     def save_data(data):
+        '''Speichert die JSON-Daten in der Datei person_db.json.'''
         with open('data/person_db.json', 'w') as file:
             json.dump(data, file, indent=4)
 
@@ -27,9 +25,8 @@ def add_new_data():
             return 1
         return max(person['id'] for person in data) + 1
     
-
-    
     def get_next_free_id_ekg(data):
+        '''Ermittelt die nächste freie ID für einen EKG-Test.'''
         if not data:
             return 1
         return max(ekg_test['id'] for ekg_test in data) + 1
@@ -65,8 +62,9 @@ def add_new_data():
                 with open(ekg_path, "wb") as f:
                     f.write(ekg_file.getbuffer())
 
+                # Unterscheidung zwischen txt- und fit-Dateien
                 if ekg_file.name.endswith(".txt"):
-                    # txt-Datei verarbeiten (z.B. nur speichern)
+                    # txt-Datei verarbeiten 
                     ekg_tests.append({
                         "id": get_next_free_id_ekg(data),  # eine einfache ID für jeden EKG-Test
                         "date": datetime.now().strftime("%d.%m.%Y"),  # aktuelles Datum als Beispiel
@@ -79,8 +77,6 @@ def add_new_data():
                         "date": datetime.now().strftime("%d.%m.%Y"),  # aktuelles Datum als Beispiel
                         "result_link": ekg_path,
                     })
-                    
-       
                     
 
             # Neue Person erstellen

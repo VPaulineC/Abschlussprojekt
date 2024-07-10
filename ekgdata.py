@@ -8,17 +8,15 @@ import matplotlib.pyplot as plt
 # %% Objekt-Welt
 
 # Klasse EKG-Data für Peakfinder, die uns ermöglicht peaks zu finden
-
 class EKGdata:
-
+    # Klassenmethode zum Laden der Daten
     @staticmethod
     def load_by_id(such_id):
     # für alle ekg test über alle personen
-    # for pereon in prsons
-    #for ekgtest in test    def load_by_id(such_id):
+    # wenn id gefunden, dann return ekg_test:
 
         person_data = Person.load_person_data()
-
+        # prüfen ob id gefunden wurde
         if such_id == "None":
             return {}
         
@@ -41,27 +39,25 @@ class EKGdata:
         """
         # Respace the series
         series = series.iloc[::respacing_factor]
-        
         # Filter the series
         series = series[series>threshold]
-
-
+        # Find the peaks
         peaks = []
         last = 0
         current = 0
         next = 0
-
+        # Iterate over the series
         for index, row in series.items():
             last = current
             current = next
             next = row
-
+            # Check if the current value is a peak
             if last < current and current > next and current > threshold:
                 peaks.append(index-respacing_factor)
-
         return peaks
 
     @staticmethod
+    # Funktion zum Plotten des EKG-Signals
     def plot_ekg(df, peaks):
         df.loc[:, "is_peak"] = False
         df.loc[peaks, "is_peak"] = True
@@ -69,6 +65,7 @@ class EKGdata:
         return fig
     
     @staticmethod
+    # Funktion zum Plotten der Herzfrequenz
     def plot_hr(df_hr): 
         fig = px.line(df_hr, x='Time in s', y='Heart Rate in bpm')
         return fig
@@ -127,7 +124,6 @@ if __name__ == "__main__":
     #------------------------------------------------------------
     fig = EKGdata.plot_ekg(df, peaks,)
     fig.show()
-    
     #------------------------------------------------------------
     df_hr = EKGdata.estimate_hr(peaks, 1000)
     print(df_hr.head())

@@ -14,6 +14,7 @@ import read_fit_file
 from PIL import Image
 from datetime import datetime
 
+
 def get_next_free_id_ekg(data):
         if not data:
             return 1
@@ -75,7 +76,7 @@ def person_page():
         ekg_ids = [ekg["id"] for ekg in selected_person.ekg_data]
 
         # Show ekg in a list
-        selected_id = st.selectbox("Wähle ein EKG aus: ", options= ekg_ids, key="sbEKG")
+        selected_id = st.selectbox("Wähle einen Datensatz aus: ", options= ekg_ids, key="sbEKG")
 
         # Find the selected EKG data based on the selected ID
         selected_ekg_data = next(ekg for ekg in selected_person.ekg_data if ekg["id"] == selected_id)
@@ -137,7 +138,8 @@ def person_page():
 
 
             #------------------------------------------------------------
-            show_heartrate = st.checkbox("Herzrate anzeigen")
+            # Checkbox für Herzrate
+            show_heartrate = st.checkbox("Herzfrequenz anzeigen")
 
             # Wenn die Checkbox aktiviert ist, wird die Grafik der Herzrate gezeigt
             if show_heartrate:
@@ -154,33 +156,32 @@ def person_page():
             
             #------------------------------------------------------------
             # checkbox für HRV 
-            show_hrv = st.checkbox("Herzfrequenzvariabilität anzeigen")
+            show_hrv = st.checkbox("Herzratenvariabilität anzeigen")
             if show_hrv: 
             # Herzratenvaribalitität berechnen und anzeigen
                 def calculate_hrv(peaks):
                     if len(peaks) < 2:
                         return None
-                    
                     rr_intervals = np.diff(peaks) 
-
                     hrv = np.std(rr_intervals)
                     return hrv
                 st.write("Herzratenvariabilität: ", np.round(calculate_hrv(peaks)), "ms")
 
                     # rolling window für Herzfrequenz
-            show_rolling_heartrate = st.checkbox("Herzrate als gleitender Durchschnitt anzeigen")
+            show_rolling_heartrate = st.checkbox("Herzfrequenz als gleitender Durchschnitt anzeigen")
             # Wenn die Checkbox aktiviert ist, wird die Grafik der Herzrate gezeigt (im rolling window)
             if show_rolling_heartrate: 
                 def calculate_rolling_window(df, window_size):
                     df['Rolling Mean HR in bpm'] = df['Heart Rate in bpm'].rolling(window=window_size).mean()
                     return df
-
+                
+                # Plot des rolling window
                 def plot_rolling_mean(df):
                     fig = px.line(df, x='Time in s', y='Rolling Mean HR in bpm',
-                                title='Herzrate als gleitender Durchschnitt',
+                                title='Herzfrequenz als gleitender Durchschnitt',
                                 labels={'Rolling Mean HR in bpm': 'Rolling Mean HR in bpm', 'Time in s': 'Time in seconds'})
                     st.plotly_chart(fig)
-
+                # DataFrame basierend auf dem ausgewählten Zeitbereich filtern
                 def filter_by_time_window(df, start_time, end_time):
                     return df[(df['Time in s'] >= start_time) & (df['Time in s'] <= end_time)]
 
@@ -195,35 +196,43 @@ def person_page():
                 start_time = st.slider('Startzeit', min_value=0.0, max_value=float(df_hr['Time in s'].max()), value=30.0)
                 end_time = st.slider('Endzeit', min_value=0.0, max_value=float(df_hr['Time in s'].max()), value=60.0)
 
+                # DataFrame basierend auf dem ausgewählten Zeitbereich filtern
                 if start_time < end_time:
                     df_filtered = filter_by_time_window(df_hr, start_time, end_time)
                     # Plot des rolling window
                     plot_rolling_mean(df_filtered)
-                    st.write("Durchschnittliche Herzrate im angezeigten Bereich: ", np.round(df_filtered['Heart Rate in bpm'].mean()), "bpm")
+                    st.write("Durchschnittliche Herzfrequenz im angezeigten Bereich: ", np.round(df_filtered['Heart Rate in bpm'].mean()), "bpm")
                 else:
                     st.error("Die Startzeit muss vor der Endzeit liegen.")
 
         #------------------------------------------------------------
 
-
-        data=load_data()
+        # Json laden
+        data = load_data()
+        # Funktion zum Hinzufügen eines neuen EKG-Tests im json-File
         def add_ekg_test(person_name, new_test, data):
             for person in data:
-                if person['lastname'] + ", " + person['firstname']== person_name:
+                if person['lastname'] + ", " + person['firstname'] == person_name:
                     person['ekg_tests'].append(new_test)
                     return person
             return None
+        
+        # Neuer Datensatz hinzufügen 
         st.subheader("Neuen Datensatz hinzufügen")
+        # Auswahlbox für die Person, der der neue Datensatz hinzugefügt werden soll
         person_name = st.selectbox("Wähle eine Person aus:", [person['lastname'] + ", " + person['firstname'] for person in data])
-        uploaded_file = st.file_uploader("Lade eine neue Datensatz Datei hoch", type=["txt", "fit"])
-
+        # Dateiupload für den neuen Datensatz
+        uploaded_file = st.file_uploader("Lade eine neue Datensatz Datei hoch", type=["txt", "fit"], accept_multiple_files = True)
+        
+        # Button zum Hinzufügen des neuen Datensatzes
         if st.button("Neuen Datensatz hinzufügen"):
+            # Überprüfen, ob alle Felder ausgefüllt sind
             if uploaded_file is not None:
                 # Speicherort für hochgeladene Datei
                 save_dir = "data/ekg_data"
                 if not os.path.exists(save_dir):
                     os.makedirs(save_dir)
-
+                # Pfade für die Datei zusammenfügen
                 file_path = os.path.join(save_dir, uploaded_file.name)
                 with open(file_path, "wb") as f:
                     f.write(uploaded_file.getbuffer())
@@ -237,13 +246,14 @@ def person_page():
 
                 # Neuen Eintrag hinzufügen
                 updated_person = add_ekg_test(person_name, new_test_entry, data)
-
+                
+                # Überprüfen, ob der neue Datensatz hinzugefügt wurde
                 if updated_person:
                     st.success(f"Neuer Datensatz hinzugefügt für {updated_person['firstname']} {updated_person['lastname']}")
                     # Aktualisierte Daten speichern
                     save_data( data)
                     st.write("Um den neuen Datensatz anzuzeigen und zu analysieren, muss die Seite neu geladen werden.")
-                    
+                # Fehlermeldung, falls der Datensatz nicht hinzugefügt werden konnte 
                 else:
                     st.error("Neuer Datensatz konnte nicht hinzugefügt werden.")
 
