@@ -21,7 +21,7 @@ Die Basis-Aufgaben wurden alle bearbeitet. Folge zusätzlichen Aufgaben wurden i
 - Herzratenvariabilität anzeigen
 - Informationsseite mit Informationen über EKG und Herzrate 
 
-Information: wird eine neue Person erstellt erscheint folgende Fehlermeldung:ParserError: Error tokenizing data. C error: Expected 2 fields in line 2, saw 3
+Information: wird eine neue Person erstellt erscheint folgende Fehlermeldung: ParserError: Error tokenizing data. C error: Expected 2 fields in line 2, saw 3
 Doch sobald eine zweite Person neu erstellt wird, funktioniert alles einwandfrei
 
 Login Daten:
