@@ -1,4 +1,4 @@
-### Abschlussprojekt
+# Abschlussprojekt (HeartBeatAnalyser)
 ## Funktion
 Diese App, ist eine Benutzeroberfläche zur Visualisierung und Analyse von Datensätzen wie EKG Aufzeichnungen und FIT-Files mehrerer Personen, die in einer JSON-Datenbank gespeichert sind. 
 Der Benutzer der APP kann Person aus einer Liste auswählen, die aus der JSON-Datenbank geladen werden. Es werden dann grundlegende Informationen über die ausgewählte Person angezeigt, einschließlich ihres Profilbildes, falls eines vorhanden ist.
