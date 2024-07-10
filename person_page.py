@@ -84,7 +84,7 @@ def person_page():
             fig = read_fit_file.plot_fit_file(fit_df, result_link)
             st.plotly_chart(fig)
 
-        else:
+        if result_link.endswith(".txt"):
             
             # EKG Plot und HR Plot
             ekg_dict = ekgdata.EKGdata.load_by_id(selected_id)
@@ -204,7 +204,7 @@ def person_page():
 
         # weiteren Datensatz hinzufügen
         # Hole die aktuelle ausgewählte Person aus dem Session State
-        data = load_data()
+        '''data = load_data()
      
         # Button zum Hinzufügen von neuen Datensätzen
         ekg_files = st.file_uploader("Neuen Datensatz hochladen", type=["txt", "fit"], accept_multiple_files=True)
@@ -227,7 +227,47 @@ def person_page():
             # Zur JSON-Datei hinzufügen
             data.append(new_test)
             save_data(data)
-            st.success("Datensatz wurde hinzugefügt!")
+            st.success("Datensatz wurde hinzugefügt!")'''
+    
+        data=load_data()
+        def add_ekg_test(person_id, new_test, data):
+            for person in data:
+                if person['id'] == person_id:
+                    person['ekg_tests'].append(new_test)
+                    return person
+            return None
+
+        person_id = st.selectbox("Wähle eine Person aus:", [person['id'] for person in data])
+        uploaded_file = st.file_uploader("Lade eine neue EKG Test Datei hoch", type=["txt", "fit"])
+
+        if st.button("Neuen EKG-Test hinzufügen"):
+            if uploaded_file is not None:
+                # Speicherort für hochgeladene Datei
+                save_dir = "data/ekg_data"
+                if not os.path.exists(save_dir):
+                    os.makedirs(save_dir)
+
+                file_path = os.path.join(save_dir, uploaded_file.name)
+                with open(file_path, "wb") as f:
+                    f.write(uploaded_file.getbuffer())
+
+                # Neuen EKG-Test Eintrag erstellen
+                new_test_entry = {
+                    "id": max(test['id'] for test in person_dict['ekg_tests']) + 1,
+                    "date": datetime.now().strftime("%d.%m.%Y"),
+                    "result_link": file_path
+                }
+
+                # Neuen Eintrag hinzufügen
+                updated_person = add_ekg_test(person_id, new_test_entry, data)
+
+                if updated_person:
+                    st.success(f"Neuer EKG-Test Eintrag hinzugefügt für {updated_person['firstname']} {updated_person['lastname']}")
+                    # Aktualisierte Daten speichern
+                    save_data( data)
+                    
+                else:
+                    st.error("Person mit dieser ID wurde nicht gefunden.")
 
 
 
