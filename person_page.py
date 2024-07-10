@@ -8,7 +8,6 @@ import json
 import os
 import json
 import os
-import matplotlib.pyplot as plt
 import read_fit_file
 from PIL import Image
 from datetime import datetime
