@@ -2,6 +2,7 @@ import fitparse
 import pandas as pd
 import plotly.express as px
 
+# Funktion zum lesen der Herzfrequenzdaten aus einer FIT-Datei
 def read_heart_rate_from_fit(file_path):
     '''Liest die Herzfrequenzdaten aus einer FIT-Datei und gibt sie als DataFrame zurück.'''
     # Öffne die FIT-Datei mit fitparse
