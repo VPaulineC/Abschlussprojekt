@@ -27,7 +27,4 @@ Nutzername: jasper.v
 
 Passwort: LaufinZone5
 
-![Screenshot][def]
-
-
-[def]: images/sticker.jpg
+![Screenshot](image/sticker.jpg)
