@@ -230,17 +230,17 @@ def person_page():
             st.success("Datensatz wurde hinzugefügt!")'''
     
         data=load_data()
-        def add_ekg_test(person_id, new_test, data):
+        def add_ekg_test(person_name, new_test, data):
             for person in data:
-                if person['id'] == person_id:
+                if person['lastname'] + ", " + person['firstname']== person_name:
                     person['ekg_tests'].append(new_test)
                     return person
             return None
+        st.subheader("Neuen Datensatz hinzufügen")
+        person_name = st.selectbox("Wähle eine Person aus:", [person['lastname'] + ", " + person['firstname'] for person in data])
+        uploaded_file = st.file_uploader("Lade eine neue Datensatz Datei hoch", type=["txt", "fit"])
 
-        person_id = st.selectbox("Wähle eine Person aus:", [person['id'] for person in data])
-        uploaded_file = st.file_uploader("Lade eine neue EKG Test Datei hoch", type=["txt", "fit"])
-
-        if st.button("Neuen EKG-Test hinzufügen"):
+        if st.button("Neuen Datensatz hinzufügen"):
             if uploaded_file is not None:
                 # Speicherort für hochgeladene Datei
                 save_dir = "data/ekg_data"
@@ -259,15 +259,16 @@ def person_page():
                 }
 
                 # Neuen Eintrag hinzufügen
-                updated_person = add_ekg_test(person_id, new_test_entry, data)
+                updated_person = add_ekg_test(person_name, new_test_entry, data)
 
                 if updated_person:
-                    st.success(f"Neuer EKG-Test Eintrag hinzugefügt für {updated_person['firstname']} {updated_person['lastname']}")
+                    st.success(f"Neuer Datensatz hinzugefügt für {updated_person['firstname']} {updated_person['lastname']}")
                     # Aktualisierte Daten speichern
                     save_data( data)
+                    st.write("Um den neuen Datensatz anzuzeigen und zu analysieren, muss die Seite neu geladen werden.")
                     
                 else:
-                    st.error("Person mit dieser ID wurde nicht gefunden.")
+                    st.error("Neuer Datensatz konnte nicht hinzugefügt werden.")
 
 
 
