@@ -47,7 +47,7 @@ def person_page():
     person_names = read_person_data.get_person_list(read_person_data.load_person_data())
     # Auswahlbox, wenn Personen anzulegen sind
     st.session_state.aktuelle_versuchsperson = st.selectbox('Wähle eine Person', options = ["Auswählen"] + person_names, key="sbVersuchsperson")
-
+    
     #-------------
     if st.session_state.aktuelle_versuchsperson in person_names:
         person_dict = read_person_data.find_person_data_by_name(st.session_state.aktuelle_versuchsperson)
@@ -227,7 +227,7 @@ def person_page():
             # Überprüfen, ob alle Felder ausgefüllt sind
             if uploaded_file is not None:
                 # Speicherort für hochgeladene Datei
-                save_dir = "data/ekg_data"
+                save_dir = os.path.join("data","ekg_data")
                 if not os.path.exists(save_dir):
                     os.makedirs(save_dir)
                 # Pfade für die Datei zusammenfügen
