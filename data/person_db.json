@@ -51,12 +51,12 @@
         "date_of_birth": 2004,
         "firstname": "Pauline",
         "lastname": "V",
-        "picture_path": "data/pictures\\pauli.jpg",
+        "picture_path": "data/pictures/pauli.jpg",
         "ekg_tests": [
             {
                 "id": 4,
                 "date": "10.07.2024",
-                "result_link": "data/ekg_data\\tempo_blocks_training_copy.fit"
+                "result_link": "data/ekg_data/tempo_blocks_training_copy.fit"
             }
         ]
     },

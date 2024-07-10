@@ -1,4 +1,5 @@
 # Abschlussprojekt: HeartBeatAnalyzer
+<<<<<<< HEAD
 zur App gelangen (streamlit share): link
 
 Diese App, ist eine Benutzeroberfläche zur Visualisierung und Analyse von Datensätzen wie EKG Aufzeichnungen und FIT-Files mehrerer Personen, die in einer JSON-Datenbank gespeichert sind. 
@@ -7,6 +8,9 @@ Falls mehrere Datensätze bei einer Person vorhanden sind, kann ausgewählt werd
 Für .fit-Dateien werden Herzfrequenzdaten aus der FIT-Datei gelesen und visualisiert.
 Für .txt-Dateien werden verschiedene Informationen zum EKG angezeigt: EKG-Dauer, Peaks und ein interaktiver Plot des EKG-Signals basierend auf dem ausgewählten Zeitbereich vom Benutzer.
 Außerdem wird die Herzfrequenz angezeit und der Durchschnitt über die Zeit visualisiert. Herratenvariabilität 
+=======
+zur App gelangen (streamlit share): https://abschlussprojekt-xrajpzmqzpxshjpbs9fgyh.streamlit.app/
+>>>>>>> 148b1dbe8e6080994ef655b7c727415850d3f179
 
 Die Basis-Aufgaben wurden alle bearbeitet. Folge zusätzlichen Aufgaben wurden in die App implementiert:
 - login feld 
@@ -26,4 +30,4 @@ Nutzername: jasper.v
 
 Passwort: LaufinZone5
 
-![Sticker](Sticker.jpg)
+![Screenshot](sticker.jpg)
