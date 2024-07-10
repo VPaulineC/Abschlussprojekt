@@ -65,17 +65,17 @@
         "date_of_birth": 2003,
         "firstname": "Carina",
         "lastname": "T",
-        "picture_path": "data/pictures\\carina.jpg",
+        "picture_path": "data/pictures/carina.jpg",
         "ekg_tests": [
             {
                 "id": 5,
                 "date": "10.07.2024",
-                "result_link": "data/ekg_data\\long_endurance_ride_copy.fit"
+                "result_link": "data/ekg_data/long_endurance_ride_copy.fit"
             },
             {
                 "id": 6,
                 "date": "10.07.2024",
-                "result_link": "data/ekg_data\\vo2_max_training_copy.fit"
+                "result_link": "data/ekg_data/vo2_max_training_copy.fit"
             }
         ]
     }
