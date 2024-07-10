@@ -18,3 +18,5 @@ Login Daten:
 Nutzername: jasper.v
 
 Passwort: LaufinZone5
+
+![Screenshot](sticker.jpg)
