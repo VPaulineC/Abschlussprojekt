@@ -41,7 +41,7 @@ def read_heart_rate_from_fit(file_path):
 
 
 # Erstelle die interaktive Grafik
-def plot_fit_file(file_path):
+def plot_fit_file(df, file_path):
     '''Plottet die Herzfrequenzdaten aus einer FIT-Datei in einer interaktiven Grafik.'''
     df = read_heart_rate_from_fit(file_path)
     #fig = px.line(df, x = 'seconds', y ='heart_rate')
@@ -50,11 +50,11 @@ def plot_fit_file(file_path):
 
 # Beispielverwendung
 if __name__ == "__main__":
-    #file_path = 'fit-files/long_endurance_ride.fit'
+    file_path = 'fit-files/long_endurance_ride.fit'
     #file_path = 'fit-files/tempo_blocks_training.fit'
-    file_path = 'fit-files/vo2_max_training.fit'
+    #file_path = 'fit-files/vo2_max_training.fit'
     df = read_heart_rate_from_fit(file_path)
-    fig = plot_fit_file(file_path)
+    fig = plot_fit_file(df,file_path)
     fig.show()
 
 

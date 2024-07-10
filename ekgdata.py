@@ -104,6 +104,8 @@ class EKGdata:
         df_hr = pd.DataFrame({'Time in s': time_array, 'Heart Rate in bpm': heart_rate})
         return df_hr 
 
+    
+# %% Testumgebung
 
    
 if __name__ == "__main__":
