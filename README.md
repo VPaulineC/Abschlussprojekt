@@ -1,5 +1,5 @@
 # Abschlussprojekt: HeartBeatAnalyzer
-zur App gelangen (streamlit share): https://abschlussprojekt-ats95lpk48sm8grl96bebs.streamlit.app/
+zur App gelangen (streamlit share): https://abschlussprojekt-xrajpzmqzpxshjpbs9fgyh.streamlit.app/
 
 Die Basis-Aufgaben wurden alle bearbeitet. Folge zusätzlichen Aufgaben wurden in die App implementiert:
 - login feld 
@@ -19,4 +19,4 @@ Nutzername: jasper.v
 
 Passwort: LaufinZone5
 
-![Sticker](Sticker.jpg)
+![Screenshot](sticker.jpg)
