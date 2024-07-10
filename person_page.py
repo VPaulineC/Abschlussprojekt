@@ -6,7 +6,6 @@ import numpy as np
 import plotly.express as px
 import json
 import os
-import matplotlib.pyplot as plt
 import json
 import os
 import matplotlib.pyplot as plt

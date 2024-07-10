@@ -43,9 +43,3 @@ def find_person_data_by_name(suchstring):
 
 
 
-# %% Test
-#current_person = find_person_data_by_name("Statham, Jason")
-#current_person
-#current_picture_path = current_person["picture_path"]
-#current_picture_path
-# %%
