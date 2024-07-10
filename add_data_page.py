@@ -10,13 +10,13 @@ def add_new_data():
     # Funktion zum Laden der JSON-Daten
     def load_data():
         '''Lädt die JSON-Daten aus der Datei person_db.json und gibt sie zurück.'''
-        with open('data/person_db.json', 'r') as file:
+        with open('data/person_db.json', 'r', encoding='utf-8') as file:
             return json.load(file)
 
     # Funktion zum Speichern der JSON-Daten
     def save_data(data):
         '''Speichert die JSON-Daten in der Datei person_db.json.'''
-        with open('data/person_db.json', 'w') as file:
+        with open('data/person_db.json', 'w', encoding='utf-8') as file:
             json.dump(data, file, indent=4)
 
     # Funktion zur Ermittlung der nächsten ID
@@ -48,19 +48,23 @@ def add_new_data():
     ekg_files = st.file_uploader("EKG-Tests hochladen", type=["txt", "fit"], accept_multiple_files=True)
 
     # Button zum Hinzufügen der neuen Person
+
     if st.button("Neue Person hinzufügen"):
         if id and date_of_birth and firstname and lastname and picture and ekg_files:
             # Bild speichern
-            picture_path = os.path.join("data/pictures", picture.name)
+            picture_dir = os.path.join("data", "pictures")
+            picture_path = os.path.join(picture_dir, picture.name)
             with open(picture_path, "wb") as f:
                 f.write(picture.getbuffer())
 
             # EKG-Tests speichern und Informationen sammeln
             ekg_tests = []
             for ekg_file in ekg_files:
-                ekg_path = os.path.join("data/ekg_data", ekg_file.name)
+                ekg_dir = os.path.join("data","ekg_data")
+                ekg_path = os.path.join(ekg_dir, ekg_file.name)
                 with open(ekg_path, "wb") as f:
                     f.write(ekg_file.getbuffer())
+ 
 
                 # Unterscheidung zwischen txt- und fit-Dateien
                 if ekg_file.name.endswith(".txt"):

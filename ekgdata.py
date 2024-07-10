@@ -80,7 +80,7 @@ class EKGdata:
 
 
     def get_df(self):
-        df = pd.read_csv(self.data, sep='\t', header=None, names=['EKG in mV','Time in ms',])
+        df = pd.read_csv(self.data, sep='\t', header=None, names=['EKG in mV','Time in ms'], encoding='utf-8')
         df['Time in s'] = df['Time in ms'] / 1000
         return df    
         

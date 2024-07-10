@@ -220,12 +220,12 @@ def person_page():
         # Auswahlbox für die Person, der der neue Datensatz hinzugefügt werden soll
         person_name = st.selectbox("Wähle eine Person aus:", [person['lastname'] + ", " + person['firstname'] for person in data])
         # Dateiupload für den neuen Datensatz
-        uploaded_file = st.file_uploader("Lade eine neue Datensatz Datei hoch", type=["txt", "fit"], accept_multiple_files = True)
+        uploaded_file = st.file_uploader("Lade eine neue Datensatz Datei hoch", type=["txt", "fit"])
         
         # Button zum Hinzufügen des neuen Datensatzes
         if st.button("Neuen Datensatz hinzufügen"):
             # Überprüfen, ob alle Felder ausgefüllt sind
-            if uploaded_file is not None:
+            if uploaded_file:
                 # Speicherort für hochgeladene Datei
                 save_dir = os.path.join("data","ekg_data")
                 if not os.path.exists(save_dir):
