@@ -48,15 +48,15 @@
     },
     {
         "id": 4,
-        "date_of_birth": 2000,
-        "firstname": "Franzi",
+        "date_of_birth": 2004,
+        "firstname": "Pauline",
         "lastname": "V",
-        "picture_path": "data/pictures\\vogel.jpg",
+        "picture_path": "data/pictures\\hund.jpg",
         "ekg_tests": [
             {
-                "id": 1,
-                "date": "08.07.2024",
-                "result_link": "data/ekg_data\\05_Belastung_copy.txt"
+                "id": 4,
+                "date": "10.07.2024",
+                "result_link": "data/ekg_data\\tempo_blocks_training_copy.fit"
             }
         ]
     },
@@ -68,80 +68,14 @@
         "picture_path": "data/pictures\\Katze3.png",
         "ekg_tests": [
             {
-                "id": 1,
-                "date": "09.07.2024",
-                "result_link": "data/ekg_data\\04_Belastung_copy.txt"
-            },
-            {
-                "id": 2,
-                "date": "09.07.2024",
-                "result_link": "data/ekg_data\\05_Belastung_copy_2.txt"
-            }
-        ]
-    },
-    {
-        "id": 6,
-        "date_of_birth": 2002,
-        "firstname": "Victoria",
-        "lastname": "R",
-        "picture_path": "data/pictures\\hund.jpg",
-        "ekg_tests": [
-            {
-                "id": 1,
+                "id": 5,
                 "date": "10.07.2024",
                 "result_link": "data/ekg_data\\long_endurance_ride_copy.fit"
-            }
-        ]
-    },
-    {
-        "id": 7,
-        "date_of_birth": 1997,
-        "firstname": "Peter",
-        "lastname": "T",
-        "picture_path": "data/pictures\\Katze3.png",
-        "ekg_tests": [
+            },
             {
-                "id": 1,
+                "id": 6,
                 "date": "10.07.2024",
                 "result_link": "data/ekg_data\\vo2_max_training_copy.fit"
-            }
-        ]
-    },
-    {
-        "id": 8,
-        "date_of_birth": 1972,
-        "firstname": "Berni",
-        "lastname": "T",
-        "picture_path": "data/pictures\\hund.jpg",
-        "ekg_tests": [
-            {
-                "id": 1,
-                "date": "10.07.2024",
-                "result_link": "data/ekg_data\\05_Belastung_copy_2.txt"
-            },
-            {
-                "id": 2,
-                "date": "10.07.2024",
-                "result_link": "data/ekg_data\\tempo_blocks_training_copy.fit"
-            }
-        ]
-    },
-    {
-        "id": 9,
-        "date_of_birth": 2000,
-        "firstname": "Max",
-        "lastname": "Muster",
-        "picture_path": "data/pictures\\vogel.jpg",
-        "ekg_tests": [
-            {
-                "id": 9,
-                "date": "10.07.2024",
-                "result_link": "data/ekg_data\\05_Belastung_copy_2.txt"
-            },
-            {
-                "id": 2,
-                "date": "10.07.2024",
-                "result_link": "data/ekg_data\\long_endurance_ride_copy.fit"
             }
         ]
     }

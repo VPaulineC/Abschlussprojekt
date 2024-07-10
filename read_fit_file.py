@@ -30,8 +30,6 @@ def read_heart_rate_from_fit(file_path):
     })
 
     # Füge eine Spalte im df hinzu, die nur die Sekunden enthält mit der Funktion dt.second
-    # df['seconds'] = df['timestamp'].dt.second Falsch!
-
     # Berechne die Sekunden seit dem Start der Aufzeichnung
     start_time = df['timestamp'].iloc[0]
     df['seconds'] = (df['timestamp'] - start_time).dt.total_seconds() 
@@ -44,8 +42,7 @@ def read_heart_rate_from_fit(file_path):
 def plot_fit_file(df, file_path):
     '''Plottet die Herzfrequenzdaten aus einer FIT-Datei in einer interaktiven Grafik.'''
     df = read_heart_rate_from_fit(file_path)
-    #fig = px.line(df, x = 'seconds', y ='heart_rate')
-    fig = px.line(df, x='seconds', y='heart_rate', title='Herzfrequenz über Zeit')
+    fig = px.line(df, x='seconds', y='heart_rate', title='Herzfrequenz aus FIT-Datei über Zeit')
     return fig
 
 # Beispielverwendung

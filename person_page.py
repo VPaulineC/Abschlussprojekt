@@ -73,23 +73,26 @@ def person_page():
 
         #------------------------------------------------------------
         ekg_ids = [ekg["id"] for ekg in selected_person.ekg_data]
+
         # Show ekg in a list
         selected_id = st.selectbox("Wähle ein EKG aus: ", options= ekg_ids, key="sbEKG")
 
-        result_link = selected_person.ekg_data[0]["result_link"]
-        
+        # Find the selected EKG data based on the selected ID
+        selected_ekg_data = next(ekg for ekg in selected_person.ekg_data if ekg["id"] == selected_id)
+        result_link = selected_ekg_data["result_link"]
+
         if result_link.endswith(".fit"):
-            st.write("FIT-Datei ist hier irgendwo...")
+            st.write("Herzfrequenzdaten werden aus FIT-Datei geladen...")
             fit_df = read_fit_file.read_heart_rate_from_fit(result_link)
             fig = read_fit_file.plot_fit_file(fit_df, result_link)
             st.plotly_chart(fig)
 
-        if result_link.endswith(".txt"):
+        elif result_link.endswith(".txt"):
             
             # EKG Plot und HR Plot
             ekg_dict = ekgdata.EKGdata.load_by_id(selected_id)
-                
             #ekg_dict = EKGdata.load_by_id(id_from_selectionbox)
+            
             ekg_data = ekgdata.EKGdata(ekg_dict)
         
             
@@ -202,33 +205,7 @@ def person_page():
 
         #------------------------------------------------------------
 
-        # weiteren Datensatz hinzufügen
-        # Hole die aktuelle ausgewählte Person aus dem Session State
-        '''data = load_data()
-     
-        # Button zum Hinzufügen von neuen Datensätzen
-        ekg_files = st.file_uploader("Neuen Datensatz hochladen", type=["txt", "fit"], accept_multiple_files=True)
-        if st.button("Neuen Datensatz hinzufügen"):
-            
-        
-            # EKG-Tests speichern und Informationen sammeln
-            
-            for ekg_file in ekg_files:
-                ekg_path = os.path.join("data/ekg_data", ekg_file.name)
-                with open(ekg_path, "wb") as f:
-                    f.write(ekg_file.getbuffer())
 
-
-            new_test = {
-                'id': get_next_free_id_ekg(data),
-                'date': datetime.now().strftime("%d.%m.%Y"),
-                'result_link': ekg_path
-            }
-            # Zur JSON-Datei hinzufügen
-            data.append(new_test)
-            save_data(data)
-            st.success("Datensatz wurde hinzugefügt!")'''
-    
         data=load_data()
         def add_ekg_test(person_name, new_test, data):
             for person in data:
@@ -270,23 +247,3 @@ def person_page():
                 else:
                     st.error("Neuer Datensatz konnte nicht hinzugefügt werden.")
 
-
-
-
-    
-
-
-
-
-
-
-        
-        
-
-
-
-'''To-dos:
-        - zusätzlichen Datensatz bei Person hinzufügen
-        - Deployment auf Heroku oder Streamlit Share
-        - Daten aus einer anderen Datenquelle einlesen
-      '''
